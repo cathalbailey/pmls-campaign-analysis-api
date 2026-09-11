@@ -4,10 +4,8 @@ import pandas as pd
 
 app = FastAPI()
 
-# 1. Load and prepare data (runs once when the app starts)
-file_path = "/Users/cathalbailey/Documents/Data Science Institute/PMLS/"
-df_purchase = pd.read_csv(file_path + "Purchase Data 1.csv")
-df_response = pd.read_csv(file_path + "Response Data.csv")
+df_purchase = pd.read_csv("Purchase Data 1.csv")
+df_response = pd.read_csv("Response Data.csv")
 
 df = pd.merge(df_purchase, df_response, on="Custid")
 
