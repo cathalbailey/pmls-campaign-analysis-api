@@ -123,3 +123,34 @@ def campaign_analysis():
     </html>
     """
     return html_content
+
+# JSON endpoints for Excel Power Query
+@app.get("/campaign-analysis/json")
+def campaign_analysis_json():
+    """Return all campaign analysis results as JSON for Excel Power Query"""
+    return {
+        "task1_gender": t1_gender.to_dict(orient='records'),
+        "task2_age": t2_age.to_dict(orient='records'),
+        "task3_quarter": t3_quarter.to_dict(orient='records'),
+        "task4_usage": t4_usage.to_dict(orient='records')
+    }
+
+@app.get("/campaign-analysis/gender")
+def get_gender_table():
+    """Return just the gender analysis table as JSON"""
+    return t1_gender.to_dict(orient='records')
+
+@app.get("/campaign-analysis/age")
+def get_age_table():
+    """Return just the age analysis table as JSON"""
+    return t2_age.to_dict(orient='records')
+
+@app.get("/campaign-analysis/quarter")
+def get_quarter_table():
+    """Return just the quarter purchase table as JSON"""
+    return t3_quarter.to_dict(orient='records')
+
+@app.get("/campaign-analysis/usage")
+def get_usage_table():
+    """Return just the product usage table as JSON"""
+    return t4_usage.to_dict(orient='records')
