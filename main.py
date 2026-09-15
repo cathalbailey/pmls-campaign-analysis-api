@@ -4,6 +4,7 @@ import pandas as pd
 
 app = FastAPI()
 
+# 1. Load and prepare data
 df_purchase = pd.read_csv("Purchase Data 1.csv")
 df_response = pd.read_csv("Response Data.csv")
 
@@ -28,42 +29,4 @@ def calculate_table(dataframe, group_column):
 
 @app.get("/", response_class=HTMLResponse)
 def home():
-    return "<h2>Campaign Analysis API</h2><p>Go to <a href='/campaign-analysis'>/campaign-analysis</a> to view results.</p>"
-
-@app.get("/campaign-analysis", response_class=HTMLResponse)
-def campaign_analysis():
-    # Generate the 4 tables
-    t1 = calculate_table(df, 'Gender_Label')
-    t2 = calculate_table(df, 'Age_Group')
-    t3 = calculate_table(df, 'Last_Quarter_Purchase')
-    t4 = calculate_table(df, 'Product_Usage')
-    
-    # Convert DataFrames to HTML tables
-    html_content = f"""
-    <html>
-        <head>
-            <title>Campaign Analysis Results</title>
-            <style>
-                table {{ border-collapse: collapse; margin-bottom: 25px; width: 50%; }}
-                th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-                th {{ background-color: #f2f2f2; }}
-                h3 {{ font-family: Arial, sans-serif; }}
-            </style>
-        </head>
-        <body>
-            <h2>Marketing Campaign Analysis Results</h2>
-            <h3>1. Gender vs Campaign Response</h3>
-            {t1.to_html(index=False)}
-            
-            <h3>2. Age Group vs Campaign Response</h3>
-            {t2.to_html(index=False)}
-            
-            <h3>3. Purchase in Last Quarter vs Campaign Response</h3>
-            {t3.to_html(index=False)}
-            
-            <h3>4. Product Usage vs Campaign Response</h3>
-            {t4.to_html(index=False)}
-        </body>
-    </html>
-    """
-    return html_content
+    return "
